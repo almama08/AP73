@@ -116,5 +116,17 @@ public function modificar($vehiculo){
     }
     return $stmt->execute();
 }
+
+//operaciones gestión usuarios
+
+public function registroUsuario(Usuario $usuario){
+    $sql='INSERT INTO Usuario (email, password) VALUES (:email, :password)';
+    $stmt=$this->conn->prepare($sql);
+
+    $stmt->bindValue(':email',$usuario->getEmail());
+    $stmt->bindValue(':password',$usuario->getPassword());
+
+    return $stmt->execute();
+}
 }
 ?>

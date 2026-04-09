@@ -3,29 +3,33 @@
     
     $gestor=new GestorPDO();
     $controller=new Controller($gestor);
+    $usuarioController=new UsuarioController($gestor);
 
     $accion=$_GET['accion'] ?? 'index';
 
     switch($accion){
         //opciones gestión usuarios
         case 'login':
-            $controller->login();
+            $usuarioController->login();
             break;
         case 'registroUsuario':
-            $controller->registroUsuario();
+            $usuarioController->registroUsuario();
             break;
         case 'logout':
-            $controller->logout();
-        //opciones gestión vehículos
+            $usuarioController->logout();
+        //opciones gestión vehículos. Técnica fall-throught
         case 'editar':
-            $controller->editar();
-            break;
+            
         case 'baja':
-            $controller->baja();
-            break;
+            
         case 'alta':
-            $controller->alta();
-            break;
+            if(!isset($_SESSION['usuario_id'])){
+                header('Location: index.php?accion=login');
+                exit;
+            }
+            if($accion=='alta')$controller->alta();
+            if($accion=='baja')$controller->baja();
+            if($accion=='editar')$controller->editar();
         default:
             $controller->index();
     }

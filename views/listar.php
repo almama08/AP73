@@ -7,6 +7,9 @@
     </head>
 <body>
     <?='<h1>Lista de vehículos disponibles</h1>'?>
+    <a href="index.php?accion=alta">Añadir Nuevo Vehículo</a><br>
+    <a href="index.php?accion=registroUsuario">Registrarse</a><br>
+    <a href="index.php?accion=login">Login</a>
     <div class="container-fluid">
         <?='<table class="table table-striped">';?>
         <?='<thead>
@@ -41,7 +44,6 @@
             </tr>
         <?php endforeach;?>
         </table>
-        <a href="index.php?accion=alta">Añadir Nuevo Vehículo</a>
     </div>
 </body>
 </html>
