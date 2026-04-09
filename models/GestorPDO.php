@@ -128,5 +128,21 @@ public function registroUsuario(Usuario $usuario){
 
     return $stmt->execute();
 }
+
+public function buscarUsuarioPorEmail($email){
+    $sql='SELECT * FROM Usuario WHERE email= :email LIMIT 1';
+    $stmt=$this->conn->prepare($sql);
+    $stmt->bindValue(':email',$email);
+    $stmt->execute();
+
+    $value=$stmt->fetch(PDO::FETCH_ASSOC);
+
+    //si ha encontrado algo, creamos y devolvemos el objeto usuario
+    if($value){
+        return new Usuario($value['email'],$value['password'],$value['id']);
+    }
+    //si no existe, devolvemos false o null
+    return false;
+}
 }
 ?>

@@ -7,21 +7,33 @@
     </head>
 <body>
     <?='<h1>Lista de vehículos disponibles</h1>'?>
-    <a href="index.php?accion=alta">Añadir Nuevo Vehículo</a><br>
-    <a href="index.php?accion=registroUsuario">Registrarse</a><br>
-    <a href="index.php?accion=login">Login</a>
+
+    <?php if (isset($_SESSION['usuario_id'])): ?>
+        Bienvenido, <?= $_SESSION['usuario_email'] ?>
+        <a href='index.php?accion=logout'>Cerrar sesión</a><br>
+        <a href="index.php?accion=alta">Añadir Nuevo Vehículo</a><br>
+    <?php else: ?>
+        <a href="index.php?accion=registroUsuario">Registrarse</a><br>
+        <a href="index.php?accion=login">Iniciar sesión</a><br>
+    <?php endif; ?>
+
+    
+    
     <div class="container-fluid">
         <?='<table class="table table-striped">';?>
-        <?='<thead>
+        <thead>
                 <tr>
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Matrícula</th>
                     <th>Precio/Día</th>
                     <th>Alquiler (7 días)</th>
-                    <th>Opciones</th>
+
+                    <?php if(isset($_SESSION['usuario_id'])): ?>
+                        <th>Opciones</th>
+                    <?php endif; ?>
                 </tr>
-            </thead>';?>
+            </thead>
         <?php foreach($lista as $vehiculo):?>
             <tr>
                 <td><?=$vehiculo->getMarca()?></td>
@@ -31,6 +43,7 @@
                 <td>
                     <?=$vehiculo->calcularAlquiler(7)?>€
                 </td>
+                <?php if(isset($_SESSION['usuario_id'])): ?>
                 <td>
                     <a href='index.php?accion=baja&matricula=<?=$vehiculo->getMatricula()?>'>
                         Eliminar
@@ -41,6 +54,7 @@
                         Editar
                     </a>
                 </td>
+                <?php endif; ?>
             </tr>
         <?php endforeach;?>
         </table>

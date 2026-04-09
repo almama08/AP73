@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once "autoload.php";
     
     $gestor=new GestorPDO();
@@ -30,6 +31,7 @@
             if($accion=='alta')$controller->alta();
             if($accion=='baja')$controller->baja();
             if($accion=='editar')$controller->editar();
+            break;
         default:
             $controller->index();
     }

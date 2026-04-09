@@ -51,6 +51,18 @@ class UsuarioController{
 
         include 'views/login.php';
     }
+
+    public function logout(){
+        //vaciamos variables de sesión
+        $_SESSION=[];
+
+        //destruimos sesión por completo
+        session_destroy();
+
+        //redirigimos al inicio
+        header('Location: index.php?accion=login');
+        exit;
+    }
 }
 
 ?>
